@@ -14,6 +14,7 @@
   --dark-button-hover: #3c3c3c;
   --dark-border: #3c3c3c;
   --dark-table-head: #3c3c3c;
+  --dark-table-hover: #4d4d4d;
 }
 
 /* FONT STYLING */
@@ -50,6 +51,20 @@ button {
   border: 1px solid var(--dark-border);
   cursor: pointer;
   transition: 0.4s;
+}
+
+#notification {
+  box-sizing: content-box;
+  position: fixed;
+  top: -10%;
+  right: 50%;
+  transform: translate(50%);
+  text-align: center;
+  font-weight: 600;
+  border-radius: 40px;
+  /* font-size: 1.3vw; */
+  padding: 10px 25px;
+  z-index: 100;
 }
 
 /* HEADER SIZING AND SPACING */
@@ -133,6 +148,12 @@ td {
   padding: 10px;
 }
 
+/* FONT AWESOME CHECKLIST */
+.fa-check {
+  margin: 0 -27px 0 10px;
+  color: var(--success);
+}
+
 /* TABLE COLUMN */
 .statusCol,
 .moveCol,
@@ -193,4 +214,22 @@ td {
 .editButton:hover {
   background-color: var(--warning);
   color: var(--dark);
+}
+
+/* DISABLED BUTTON */
+button:disabled {
+  pointer-events: none;
+}
+
+.waitingButton:disabled {
+  background-color: var(--danger);
+}
+
+.processButton:disabled {
+  background-color: var(--warning);
+  color: var(--dark);
+}
+
+.doneButton:disabled {
+  background-color: var(--success);
 }
