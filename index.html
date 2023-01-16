@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Totok Syaraf</title>
+    <script src="https://kit.fontawesome.com/3ec5d18642.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="public/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div id="left-header">
+        <input type="text" placeholder="Patient name..." id="patientInput" autocomplete="off" />
+        <button type="submit" id="inputButton">Add</button>
+      </div>
+      <div id="middle-header">
+        <span id="date">1st November 2023</span>
+      </div>
+      <div id="right-header">
+        <button id="copyButton">Copy Data</button>
+        <button id="deleteAllButton">Delete All</button>
+      </div>
+    </header>
+
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Q</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Move</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="records">
+          <tr class="record">
+            <td class="qCol">1</td>
+            <td class="nameCol">Lukman Yahya</td>
+            <td class="statusCol">
+              <button class="waitingButton">Waiting</button>
+              <button class="processButton">Process</button>
+              <button class="doneButton">Done</button>
+            </td>
+            <td class="moveCol">
+              <button class="upButton"><i class="fa-solid fa-arrow-up"></i></button>
+              <button class="downButton"><i class="fa-solid fa-arrow-down"></i></button>
+            </td>
+            <td class="actionCol">
+              <button class="editButton">Edit Name</button>
+              <button class="deleteButton">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="public/js/script.js"></script>
+  </body>
+</html>

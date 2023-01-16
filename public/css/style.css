@@ -1,0 +1,196 @@
+/* COLOR VARIABLES */
+:root {
+  --primary: #0d6efd;
+  --secondary: #6c757d;
+  --success: #198754;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #0dcaf0;
+  --dark: #212529;
+  --dark-bg: #0f0f0f;
+  --dark-text: #ffffff;
+  --dark-button: #121212;
+  --dark-input: #121212;
+  --dark-button-hover: #3c3c3c;
+  --dark-border: #3c3c3c;
+  --dark-table-head: #3c3c3c;
+}
+
+/* FONT STYLING */
+* {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark-text);
+  box-sizing: border-box;
+}
+
+/* BODY COLOR AND SPACING */
+body {
+  background-color: var(--dark-bg);
+  margin: 1rem 2rem;
+}
+
+/* INPUT STYLING */
+input {
+  background-color: var(--dark-input);
+  padding: 0 1rem;
+  border: 1px solid var(--dark-border);
+  border-radius: 40px;
+  text-align: center;
+}
+
+input:focus {
+  outline: 1px solid var(--primary);
+}
+
+/* BUTTON STYLING */
+button {
+  background-color: var(--dark-button);
+  border: 1px solid var(--dark-border);
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+/* HEADER SIZING AND SPACING */
+header {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 0.7fr;
+  height: 3rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  /* background-color: red; */
+}
+
+/* HEADER COMPONENTS GRID */
+header > * {
+  display: grid;
+}
+
+#left-header {
+  grid-template-columns: 5fr 1fr;
+}
+
+#middle-header {
+  place-content: center end;
+}
+
+#right-header {
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* LEFT-SIDE HEADER */
+#patientInput {
+  text-align: start;
+  border-radius: 40px 0 0 40px;
+}
+
+#patientInput:focus {
+  margin-right: 1px;
+}
+
+#inputButton {
+  border-radius: 0 40px 40px 0;
+  padding-left: 1px;
+}
+
+/* MIDDLE-SIDE HEADER */
+#date {
+  font-size: 16px;
+}
+
+/* RIGHT-SIDE HEADER */
+#right-header > * {
+  border-radius: 40px;
+}
+
+/* TABLE STYLING */
+table {
+  background-color: var(--dark);
+  border-collapse: collapse;
+  border-radius: 15px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* TABLE HEAD COLOR */
+thead {
+  background-color: var(--dark-table-head);
+}
+
+/* TABLE COLUMN SIZING */
+thead tr,
+tbody tr {
+  display: grid;
+  grid-template-columns: 0.2fr 1.5fr 1.2fr 0.5fr 0.9fr;
+}
+
+/* TABLE CONTENT SPACING */
+th,
+td {
+  padding: 10px;
+}
+
+/* TABLE COLUMN */
+.statusCol,
+.moveCol,
+.actionCol {
+  display: grid;
+  align-items: center;
+  gap: 1px;
+}
+
+.statusCol {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.moveCol,
+.actionCol {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* LEFT BORDER-RADIUS */
+.waitingButton,
+.upButton,
+.editButton {
+  border-radius: 40px 0 0 40px;
+}
+
+/* RIGHT BORDER-RADIUS */
+.doneButton,
+.downButton,
+.deleteButton {
+  border-radius: 0 40px 40px 0;
+}
+
+/* IN-TABLE BUTTON HEIGHT */
+.record button {
+  height: 140%;
+}
+
+/* BUTTON HOVER COLOR */
+#inputButton:hover {
+  background-color: var(--dark-button-hover);
+}
+
+#deleteAllButton:hover,
+.waitingButton:hover,
+.downButton:hover,
+.deleteButton:hover {
+  background-color: var(--danger);
+}
+
+.doneButton:hover,
+.upButton:hover,
+.no:hover {
+  background-color: var(--success);
+}
+
+#copyButton:hover,
+.processButton:hover,
+.editButton:hover {
+  background-color: var(--warning);
+  color: var(--dark);
+}
