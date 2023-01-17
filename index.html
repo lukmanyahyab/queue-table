@@ -20,7 +20,7 @@
         <span id="date"></span>
       </div>
       <div id="right-header">
-        <button id="copyButton">Copy Data</button>
+        <button id="copyButton" data-clipboard-target="#records">Copy Data</button>
         <button id="deleteAllButton">Delete All</button>
       </div>
     </header>
@@ -41,6 +41,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
     <script src="public/js/script.js"></script>
   </body>
 </html>

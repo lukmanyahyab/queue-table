@@ -128,6 +128,7 @@ table {
   width: 100%;
   text-align: center;
   overflow: hidden;
+  box-shadow: 0 0 5px #eee;
 }
 
 /* TABLE HEAD COLOR */
@@ -194,6 +195,7 @@ td {
 /* BUTTON HOVER COLOR */
 #inputButton:hover {
   background-color: var(--dark-button-hover);
+  box-shadow: 0 0 3px #fff;
 }
 
 #deleteAllButton:hover,
@@ -201,12 +203,14 @@ td {
 .downButton:hover,
 .deleteButton:hover {
   background-color: var(--danger);
+  box-shadow: 0 0 3px #fff;
 }
 
 .doneButton:hover,
 .upButton:hover,
 .no:hover {
   background-color: var(--success);
+  box-shadow: 0 0 3px #fff;
 }
 
 #copyButton:hover,
@@ -214,6 +218,7 @@ td {
 .editButton:hover {
   background-color: var(--warning);
   color: var(--dark);
+  box-shadow: 0 0 3px #fff;
 }
 
 /* DISABLED BUTTON */
@@ -223,13 +228,16 @@ button:disabled {
 
 .waitingButton:disabled {
   background-color: var(--danger);
+  box-shadow: 0 0 3px #fff;
 }
 
 .processButton:disabled {
   background-color: var(--warning);
   color: var(--dark);
+  box-shadow: 0 0 3px #fff;
 }
 
 .doneButton:disabled {
   background-color: var(--success);
+  box-shadow: 0 0 3px #fff;
 }
