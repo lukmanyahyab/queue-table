@@ -53,6 +53,7 @@ button {
   transition: 0.4s;
 }
 
+/* NOTIFICATION */
 #notification {
   box-sizing: content-box;
   position: fixed;
@@ -64,7 +65,7 @@ button {
   border-radius: 40px;
   /* font-size: 1.3vw; */
   padding: 10px 25px;
-  z-index: 100;
+  z-index: 1;
 }
 
 /* HEADER SIZING AND SPACING */
@@ -99,6 +100,7 @@ header > * {
 #patientInput {
   text-align: start;
   border-radius: 40px 0 0 40px;
+  box-shadow: 0 0 2px #eee;
 }
 
 #patientInput:focus {
@@ -108,6 +110,7 @@ header > * {
 #inputButton {
   border-radius: 0 40px 40px 0;
   padding-left: 1px;
+  box-shadow: 0 0 2px #eee;
 }
 
 /* MIDDLE-SIDE HEADER */
@@ -140,7 +143,7 @@ thead {
 thead tr,
 tbody tr {
   display: grid;
-  grid-template-columns: 0.2fr 1.5fr 1.2fr 0.5fr 0.9fr;
+  grid-template-columns: 0.3fr 1.5fr 1.3fr 0.5fr 0.9fr;
 }
 
 /* TABLE CONTENT SPACING */
@@ -192,10 +195,9 @@ td {
   height: 140%;
 }
 
-/* BUTTON HOVER COLOR */
+/* HOVER */
 #inputButton:hover {
   background-color: var(--dark-button-hover);
-  box-shadow: 0 0 3px #fff;
 }
 
 #deleteAllButton:hover,
@@ -219,6 +221,10 @@ td {
   background-color: var(--warning);
   color: var(--dark);
   box-shadow: 0 0 3px #fff;
+}
+
+.record:hover {
+  background-color: var(--dark-table-hover);
 }
 
 /* DISABLED BUTTON */

@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "clipboard": "^2.0.11"
+    "@sweetalert2/themes": "^5.0.15",
+    "clipboard": "^2.0.11",
+    "sweetalert2": "^11.7.0"
   }
 }

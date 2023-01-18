@@ -35,7 +35,7 @@ $("#copyButton").on("click", function () {
 
   // ASSIGN CLIPBOARD.JS TO COPY BUTTON
   new ClipboardJS("#copyButton").on("success", (e) => {
-    notification("Patient data copied to clipboard", "add"); // COPIED NOTIFICATION
+    notification("Patient data copied to clipboard", "success"); // COPIED NOTIFICATION
     e.clearSelection();
   });
   setTimeout(() => location.reload(), 3000); // RELOAD THE PAGE AFTER 3 SECONDS TO MAKE THE TABLE NORMAL
@@ -47,7 +47,7 @@ $("#deleteAllButton").on("click", function () {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
-    icon: "warning",
+    icon: "question",
     showCancelButton: true,
     confirmButtonColor: "#d33",
     cancelButtonColor: "#3085d6",
@@ -59,19 +59,9 @@ $("#deleteAllButton").on("click", function () {
       $("#records tr").remove(); // REMOVE ALL ROWS
       localStorage.clear(); // CLEAR THE LOCALSTORAGE
       q = 1; // SET THE QUEUE BACK TO 1
-      notification("All patient has been deleted", "delete"); // DELETE NOTIFICATION
+      notification("All patient has been deleted", "danger"); // DELETE NOTIFICATION
     }
   });
-});
-
-// ROW HOVER - WHEN MOUSE ENTER
-$("#records").on("mouseenter", "tr", function () {
-  $(this).css("background-color", "var(--dark-table-hover)");
-});
-
-// ROW HOVER - WHEN MOUSE LEAVE
-$("#records").on("mouseleave", "tr", function () {
-  $(this).css("background-color", "var(--dark)");
 });
 
 // STATUS COLUMN
@@ -119,25 +109,32 @@ $("#records").on("click", ".actionCol > *", function () {
 
     // EVERY KEYBOARD PRESS ON THE EDIT INPUT
     $(".editInput").on("keyup", function (e) {
-      let changedName = capitalize($(this).val()); // KEEP TRACK WHAT'S ON THE INPUT AND CAPITALIZE IT
+      let changedName = capitalize($(this).val()); // GET THE VALUE ON THE INPUT
 
-      // IF "ENTER" IS PRESSED AND THE INPUT ISN'T EMPTY
-      if (e.key == "Enter" && changedName) {
+      // IF "ENTER" IS PRESSED
+      if (e.key == "Enter") {
+        // VALIDATE THE INPUT
+        if (typeof validation(changedName) === "undefined") {
+          $(this).replaceWith(oldName); // REPLACE WITH OLD NAME
+          return; // STOP THE FUNCTION
+        }
         blinkAnimation(row); // ANIMATE THE ROW
         $(this).replaceWith(changedName); // REPLACE THE INPUT WITH THE VALUE OF THE INPUT
         localSave(queue, changedName, status); // UPDATE THE LOCALSTORAGE WITH THE NEW NAME
-      } else if (e.key == "Escape") $(this).focusout(); // IF "ESCAPE" IS PRESSED, FOCUS OUT THE INPUT
+      } else if (e.key == "Escape") $(this).focusout(); // IF "ESCAPE" IS PRESSED, FOCUSOUT THE INPUT
     });
 
     // WHEN THE INPUT FOCUSED OUT
     $(".editInput").focusout(function () {
       changedName = capitalize($(this).val()); // GET THE VALUE ON THE INPUT
-      // IF THE INPUT ISN'T EMPTY
-      if (changedName) {
-        blinkAnimation(row); // ANIMATE THE ROW
-        $(this).replaceWith(changedName); // REPLACE THE INPUT WITH THE VALUE OF THE INPUT
-        localSave(queue, changedName, status); // UPDATE THE LOCALSTORAGE WITH THE NEW NAME
-      } else $(this).replaceWith(oldName); // ELSE (THE INPUT IS EMPTY) REPLACE INPUT WITH OLD NAME
+      // VALIDATE THE INPUT
+      if (typeof validation(changedName) === "undefined") {
+        $(this).replaceWith(oldName); // REPLACE WITH OLD NAME
+        return; // STOP THE FUNCTION
+      }
+      blinkAnimation(row); // ANIMATE THE ROW
+      $(this).replaceWith(changedName); // REPLACE THE INPUT WITH THE VALUE OF THE INPUT
+      localSave(queue, changedName, status); // UPDATE THE LOCALSTORAGE WITH THE NEW NAME
     });
 
     // DELETE BUTTON
@@ -146,7 +143,7 @@ $("#records").on("click", ".actionCol > *", function () {
     Swal.fire({
       title: "Are you sure?",
       text: `Delete patient "${oldName}"?`,
-      icon: "warning",
+      icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
@@ -166,7 +163,7 @@ $("#records").on("click", ".actionCol > *", function () {
         setTimeout(() => localStorage.removeItem(localStorage.length), 1000); // REMOVE FROM THE LOCALSTORAGE
         q--; // DECREASE QUEUE BY 1
 
-        notification("Patient has been deleted", "delete"); // DELETE NOTIFICATION
+        notification("Patient has been deleted", "danger"); // DELETE NOTIFICATION
       }
     });
   }
@@ -199,12 +196,12 @@ const addRow = (patientName, status) => {
 const patientInput = () => {
   let patientName = capitalize($("#patientInput").val()); // GET PATIENT NAME FROM INPUT
   let status = "Waiting"; // DECLARE DEFAULT STATUS "WAITING"
-  if (!patientName) return; // IF THE INPUT IS EMPTY, STOP THE FUNCTION
+  if (typeof validation(patientName) === "undefined") return; // VALIDATE THE INPUT
 
-  addRow(patientName, status); // ADD NEW ROW
+  addRow(patientName.trim(), status); // ADD NEW ROW
   blinkAnimation($("tr:last")); // NEW ROW ANIMATE
   localSave(q++, $("#patientInput").val(), "Waiting"); // SAVE DATA ON LOCALSTORAGE
-  notification("Patient has been added", "add"); // NOTIFICATION MESSAGE
+  notification("Patient has been added", "success"); // NOTIFICATION MESSAGE
   $("#patientInput").val(""); // EMPTYING THE INPUT
 };
 
@@ -242,7 +239,7 @@ const moveDown = (row, queueCol, duration = 150) => {
 
 // NOTIFICATION FUNCTION
 const notification = (message, type) => {
-  if (type == "add") {
+  if (type == "success") {
     $("#notification").text(message).css({ color: "#31664d", "background-color": "#d1e7dd", border: "5px solid #beddcf" }).animate({ top: "5%" }, 500);
   } else {
     $("#notification").text(message).css({ color: "#842029", "background-color": "#f8d7da", border: "5px solid #f4ccd0" }).animate({ top: "5%" }, 500);
@@ -266,3 +263,12 @@ const slowDisappear = (element) => element.animate({ opacity: 0 }, 1000);
 
 // LOCALSTORAGE SAVE
 const localSave = (queue, name, status) => localStorage.setItem(queue, [name, status]);
+
+// INPUT VALIDATION FUNCTION
+const validation = (input) => {
+  input = input.trim();
+  if (!input) return notification("Name can't be empty", "danger"); // IF THE INPUT IS EMPTY
+  if (input.includes(",")) return notification("Can't use comma", "danger"); // IF THE INPUT IS CONTAIN A COMMA
+  if (input.search(/[0-9]/) >= 0) return notification("Can't use number", "danger"); // IF THE INPUT CONTAIN NUMERIC
+  return " "; // IF INPUT IS VALID RETURN STRING INSTEAD OF UNDEFINED
+};
