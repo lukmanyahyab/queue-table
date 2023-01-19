@@ -7,7 +7,7 @@
 
 /* FONT STYLING */
 * {
-  font-family: Montserrat;
+  font-family: "Montserrat", sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: var(--color-text);
@@ -128,51 +128,66 @@ header > * {
 }
 
 #themes #dark {
-  --radio-color: #818081;
+  --radio-color: #555555;
 }
 
 #themes #light {
-  --radio-color: white;
+  --radio-color: #dddddd;
 }
 
 #themes #pink {
   --radio-color: pink;
 }
-
-:root:has(#light:checked) {
-  --color-bg: #eaeaea;
-  --color-text: #000000;
-  --color-placeholder: #7f7f7f;
-  --color-inputFocus: #000000;
-  --color-button-input: #ededed;
-  --color-btnHover-border-thead: #c3c3c3;
-  --color-tbody: #dedad6;
-  --color-thover: #b2b2b2;
-  --color-boxShadow: #000000;
+#themes #brown {
+  --radio-color: #61443a;
 }
 
 :root:has(#dark:checked) {
   --color-bg: #0f0f0f;
-  --color-text: #ffffff;
-  --color-placeholder: #808080;
-  --color-inputFocus: #ffffff;
   --color-button-input: #121212;
-  --color-btnHover-border-thead: #3c3c3c;
   --color-tbody: #212529;
+  --color-btnHover-border-thead: #3c3c3c;
   --color-thover: #4d4d4d;
-  --color-boxShadow: #eaeaea;
+  --color-text: #ffffff;
+  --color-inputFocus: #ffffff;
+  --color-boxShadow: #ffffff;
+  --color-placeholder: #808080;
+}
+
+:root:has(#light:checked) {
+  --color-bg: #f9f9f9;
+  --color-button-input: #ececec;
+  --color-tbody: #d8d8d8;
+  --color-btnHover-border-thead: #b1b1b1;
+  --color-thover: #c5c5c5;
+  --color-text: #000000;
+  --color-inputFocus: #000000;
+  --color-boxShadow: #000000;
+  --color-placeholder: #333;
 }
 
 :root:has(#pink:checked) {
-  --color-bg: #e91e63;
-  --color-text: #ffffff;
-  --color-placeholder: #dddddd;
+  --color-bg: #f676c1;
+  --color-button-input: #f279a1;
+  --color-tbody: #f179a1;
+  --color-btnHover-border-thead: #ed4d82;
+  --color-thover: #f6a6c1;
+  --color-text: #000000;
   --color-inputFocus: #ffffff;
-  --color-button-input: #ed4d82;
-  --color-btnHover-border-thead: #f279a1;
-  --color-tbody: #e91e63;
-  --color-thover: #f676c1;
   --color-boxShadow: #ffffff;
+  --color-placeholder: #333333;
+}
+
+:root:has(#brown:checked) {
+  --color-bg: #3d2b24;
+  --color-button-input: #49332c;
+  --color-tbody: #553c33;
+  --color-btnHover-border-thead: #6d4d41;
+  --color-thover: #795548;
+  --color-text: #ffffff;
+  --color-inputFocus: #ffffff;
+  --color-boxShadow: #ffffff;
+  --color-placeholder: #808080;
 }
 
 /* RIGHT-SIDE HEADER */

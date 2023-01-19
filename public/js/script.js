@@ -86,7 +86,7 @@ $("#records").on("click", ".moveCol > *", function () {
   let row = $(this).closest("tr"); // CURRENT ROW
   let queueCol = row.find(".qCol"); // CURRENT QUEUE COLUMN
   let firstRow = queueCol.text() == 1; // FIRST ROW CHECK
-  let lastRow = queueCol.text() == localStorage.length; // LAST ROW CHECK
+  let lastRow = queueCol.text() == q - 1; // LAST ROW CHECK
 
   if ($(this).hasClass("upButton") && !firstRow) moveUp(row, queueCol); // UP BUTTON AND NOT FIRST ROW
   if ($(this).hasClass("downButton") && !lastRow) moveDown(row, queueCol); // DOWN BUTTON AND NOT LAST ROW
