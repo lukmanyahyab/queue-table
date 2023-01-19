@@ -244,7 +244,7 @@ const notification = (message, type) => {
   } else {
     $("#notification").text(message).css({ color: "#842029", "background-color": "#f8d7da", border: "5px solid #f4ccd0" }).animate({ top: "5%" }, 500);
   }
-  setTimeout(() => $("#notification").animate({ top: "-10%" }, 500), 2000);
+  setTimeout(() => $("#notification").animate({ top: "-15%" }, 500), 2000);
 };
 
 // CAPITALIZE FUNCTION

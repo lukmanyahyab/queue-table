@@ -48,7 +48,7 @@ button {
 #notification {
   box-sizing: content-box;
   position: fixed;
-  top: -10%;
+  top: -15%;
   right: 50%;
   transform: translate(50%);
   text-align: center;
@@ -168,7 +168,7 @@ header > * {
 
 :root:has(#pink:checked) {
   --color-bg: #f676c1;
-  --color-button-input: #f279a1;
+  --color-button-input: #ff658d;
   --color-tbody: #f179a1;
   --color-btnHover-border-thead: #ed4d82;
   --color-thover: #f6a6c1;
