@@ -18,9 +18,16 @@
         <button type="submit" id="inputButton">Add</button>
       </div>
       <div id="middle-header">
-        <span id="date"></span>
+        <form id="themes">
+          <fieldset>
+            <input type="radio" name="theme" id="dark" checked />
+            <input type="radio" name="theme" id="light" />
+            <input type="radio" name="theme" id="pink" />
+          </fieldset>
+        </form>
       </div>
       <div id="right-header">
+        <span id="date"></span>
         <button id="copyButton" data-clipboard-target="#records">Copy Data</button>
         <button id="deleteAllButton">Delete All</button>
       </div>
@@ -43,7 +50,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
-
     <script src="public/js/script.js"></script>
   </body>
 </html>

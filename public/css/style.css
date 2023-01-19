@@ -1,20 +1,8 @@
 /* COLOR VARIABLES */
 :root {
-  --primary: #0d6efd;
-  --secondary: #6c757d;
   --success: #198754;
   --danger: #dc3545;
   --warning: #ffc107;
-  --info: #0dcaf0;
-  --dark: #212529;
-  --dark-bg: #0f0f0f;
-  --dark-text: #ffffff;
-  --dark-button: #121212;
-  --dark-input: #121212;
-  --dark-button-hover: #3c3c3c;
-  --dark-border: #3c3c3c;
-  --dark-table-head: #3c3c3c;
-  --dark-table-hover: #4d4d4d;
 }
 
 /* FONT STYLING */
@@ -22,37 +10,40 @@
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600;
-  color: var(--dark-text);
+  color: var(--color-text);
   box-sizing: border-box;
 }
 
 /* BODY COLOR AND SPACING */
 body {
-  background-color: var(--dark-bg);
+  background-color: var(--color-bg);
   margin: 1rem 2rem;
 }
 
 /* INPUT STYLING */
-input {
-  background-color: var(--dark-input);
+input:not([type="radio"]) {
+  background-color: var(--color-button-input);
   padding: 0 1rem;
-  border: 1px solid var(--dark-border);
+  border: 1px solid var(--color-btnHover-border-thead);
   border-radius: 40px;
   text-align: center;
 }
 
-input:focus {
-  outline: 1px solid var(--primary);
+input:not([type="radio"]):focus {
+  outline: 1px solid var(--color-inputFocus);
 }
 
 /* BUTTON STYLING */
 button {
-  background-color: var(--dark-button);
-  border: 1px solid var(--dark-border);
+  background-color: var(--color-button-input);
+  border: 1px solid var(--color-btnHover-border-thead);
   cursor: pointer;
   transition: 0.4s;
 }
 
+::placeholder {
+  color: var(--color-placeholder);
+}
 /* NOTIFICATION */
 #notification {
   box-sizing: content-box;
@@ -63,7 +54,6 @@ button {
   text-align: center;
   font-weight: 600;
   border-radius: 40px;
-  /* font-size: 1.3vw; */
   padding: 10px 25px;
   z-index: 1;
 }
@@ -71,11 +61,10 @@ button {
 /* HEADER SIZING AND SPACING */
 header {
   display: grid;
-  grid-template-columns: 1fr 1.3fr 0.7fr;
+  grid-template-columns: 1fr 1fr 1fr;
   height: 3rem;
   gap: 1rem;
   margin-bottom: 1.5rem;
-  /* background-color: red; */
 }
 
 /* HEADER COMPONENTS GRID */
@@ -88,11 +77,11 @@ header > * {
 }
 
 #middle-header {
-  place-content: center end;
+  justify-content: center;
 }
 
 #right-header {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
 }
 
@@ -100,7 +89,7 @@ header > * {
 #patientInput {
   text-align: start;
   border-radius: 40px 0 0 40px;
-  box-shadow: 0 0 2px #eee;
+  box-shadow: 0 0 2px var(--color-boxShadow);
 }
 
 #patientInput:focus {
@@ -110,33 +99,108 @@ header > * {
 #inputButton {
   border-radius: 0 40px 40px 0;
   padding-left: 1px;
-  box-shadow: 0 0 2px #eee;
+  box-shadow: 0 0 2px var(--color-boxShadow);
 }
 
 /* MIDDLE-SIDE HEADER */
-#date {
-  font-size: 16px;
+#themes > fieldset {
+  border: 0;
+  display: flex;
+  gap: 2rem;
+  width: fit-content;
+  height: 100%;
+  align-items: center;
+  border-radius: 40px;
+  box-shadow: 0 0 3px var(--color-boxShadow);
+}
+
+#themes input[type="radio"] {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  outline: 3px solid var(--radio-color);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+#themes input[type="radio"]:checked {
+  background-color: var(--radio-color);
+}
+
+#themes #dark {
+  --radio-color: #818081;
+}
+
+#themes #light {
+  --radio-color: white;
+}
+
+#themes #pink {
+  --radio-color: pink;
+}
+
+:root:has(#light:checked) {
+  --color-bg: #eaeaea;
+  --color-text: #000000;
+  --color-placeholder: #7f7f7f;
+  --color-inputFocus: #000000;
+  --color-button-input: #ededed;
+  --color-btnHover-border-thead: #c3c3c3;
+  --color-tbody: #dedad6;
+  --color-thover: #b2b2b2;
+  --color-boxShadow: #000000;
+}
+
+:root:has(#dark:checked) {
+  --color-bg: #0f0f0f;
+  --color-text: #ffffff;
+  --color-placeholder: #808080;
+  --color-inputFocus: #ffffff;
+  --color-button-input: #121212;
+  --color-btnHover-border-thead: #3c3c3c;
+  --color-tbody: #212529;
+  --color-thover: #4d4d4d;
+  --color-boxShadow: #eaeaea;
+}
+
+:root:has(#pink:checked) {
+  --color-bg: #e91e63;
+  --color-text: #ffffff;
+  --color-placeholder: #dddddd;
+  --color-inputFocus: #ffffff;
+  --color-button-input: #ed4d82;
+  --color-btnHover-border-thead: #f279a1;
+  --color-tbody: #e91e63;
+  --color-thover: #f676c1;
+  --color-boxShadow: #ffffff;
 }
 
 /* RIGHT-SIDE HEADER */
+#date {
+  font-size: 16px;
+  align-self: center;
+  box-shadow: none !important;
+}
+
 #right-header > * {
   border-radius: 40px;
+  box-shadow: 0 0 2px var(--color-boxShadow);
 }
 
 /* TABLE STYLING */
 table {
-  background-color: var(--dark);
+  background-color: var(--color-tbody);
   border-collapse: collapse;
   border-radius: 15px;
   width: 100%;
   text-align: center;
   overflow: hidden;
-  box-shadow: 0 0 5px #eee;
+  box-shadow: 0 0 5px var(--color-boxShadow);
 }
 
 /* TABLE HEAD COLOR */
 thead {
-  background-color: var(--dark-table-head);
+  background-color: var(--color-btnHover-border-thead);
 }
 
 /* TABLE COLUMN SIZING */
@@ -197,7 +261,7 @@ td {
 
 /* HOVER */
 #inputButton:hover {
-  background-color: var(--dark-button-hover);
+  background-color: var(--color-btnHover-border-thead);
 }
 
 #deleteAllButton:hover,
@@ -205,26 +269,28 @@ td {
 .downButton:hover,
 .deleteButton:hover {
   background-color: var(--danger);
-  box-shadow: 0 0 3px #fff;
+  color: #fff;
+  box-shadow: 0 0 3px var(--color-boxShadow);
 }
 
 .doneButton:hover,
 .upButton:hover,
 .no:hover {
   background-color: var(--success);
-  box-shadow: 0 0 3px #fff;
+  color: #fff;
+  box-shadow: 0 0 3px var(--color-boxShadow);
 }
 
 #copyButton:hover,
 .processButton:hover,
 .editButton:hover {
   background-color: var(--warning);
-  color: var(--dark);
-  box-shadow: 0 0 3px #fff;
+  color: #212529;
+  box-shadow: 0 0 3px var(--color-boxShadow);
 }
 
 .record:hover {
-  background-color: var(--dark-table-hover);
+  background-color: var(--color-thover);
 }
 
 /* DISABLED BUTTON */
@@ -234,16 +300,29 @@ button:disabled {
 
 .waitingButton:disabled {
   background-color: var(--danger);
-  box-shadow: 0 0 3px #fff;
+  color: #fff;
+  box-shadow: 0 0 2px var(--color-boxShadow);
 }
 
 .processButton:disabled {
   background-color: var(--warning);
-  color: var(--dark);
-  box-shadow: 0 0 3px #fff;
+  color: #212529;
+  box-shadow: 0 0 2px var(--color-boxShadow);
 }
 
 .doneButton:disabled {
   background-color: var(--success);
-  box-shadow: 0 0 3px #fff;
+  color: #fff;
+  box-shadow: 0 0 2px var(--color-boxShadow);
+}
+
+/* SCREEN READER ONLY */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

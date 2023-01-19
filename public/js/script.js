@@ -267,8 +267,8 @@ const localSave = (queue, name, status) => localStorage.setItem(queue, [name, st
 // INPUT VALIDATION FUNCTION
 const validation = (input) => {
   input = input.trim();
-  if (!input) return notification("Name can't be empty", "danger"); // IF THE INPUT IS EMPTY
-  if (input.includes(",")) return notification("Can't use comma", "danger"); // IF THE INPUT IS CONTAIN A COMMA
-  if (input.search(/[0-9]/) >= 0) return notification("Can't use number", "danger"); // IF THE INPUT CONTAIN NUMERIC
+  if (!input) return notification("Name cannot be empty", "danger"); // IF THE INPUT IS EMPTY
+  if (input.includes(",")) return notification("Cannot use comma", "danger"); // IF THE INPUT IS CONTAIN A COMMA
+  if (input.search(/[0-9]/) >= 0) return notification("Cannot use number", "danger"); // IF THE INPUT CONTAIN NUMERIC
   return " "; // IF INPUT IS VALID RETURN STRING INSTEAD OF UNDEFINED
 };
