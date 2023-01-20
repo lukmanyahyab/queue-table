@@ -1,4 +1,5 @@
 var q = 1; // NUMBERING THE QUEUE
+var checkIcon = '<i class="fa-solid fa-check fa-lg"></i>'; // FONT AWESOME CHECK ICON
 
 // ADD ROWS FROM LOCALSTORAGE WHEN PAGE READY
 $(document).ready(() => {
@@ -76,9 +77,9 @@ $("#records").on("click", ".statusCol > *", function () {
 
   localSave(queue, name, $(this).attr("name")); // UPDATE STATUS ON LOCALSTORAGE
 
-  // IF THE "DONE" BUTTON CLICKED, APPEND CHECKLIST ON NAME COLUMN, ELSE REMOVE CHECKLIST
+  // IF THE "DONE" BUTTON CLICKED, APPEND CHECK ICON ON NAME COLUMN, ELSE REMOVE CHECK ICON
   if ($(this).attr("name") != "Done") row.find(".nameCol i").remove();
-  else row.find(".nameCol").append('<i class="fa-solid fa-check fa-lg"></i>');
+  else row.find(".nameCol").append(checkIcon);
 });
 
 // MOVE COLUMN
@@ -118,8 +119,11 @@ $("#records").on("click", ".actionCol > *", function () {
           $(this).replaceWith(oldName); // REPLACE WITH OLD NAME
           return; // STOP THE FUNCTION
         }
+        // REPLACE THE INPUT WITH THE VALUE OF THE INPUT
+        if (status == "Done") $(this).replaceWith(`${changedName}${checkIcon}`); // IF STATUS == "DONE"
+        else $(this).replaceWith(changedName); // ELSE STATUS != "DONE"
+
         blinkAnimation(row); // ANIMATE THE ROW
-        $(this).replaceWith(changedName); // REPLACE THE INPUT WITH THE VALUE OF THE INPUT
         localSave(queue, changedName, status); // UPDATE THE LOCALSTORAGE WITH THE NEW NAME
       } else if (e.key == "Escape") $(this).focusout(); // IF "ESCAPE" IS PRESSED, FOCUSOUT THE INPUT
     });
@@ -132,6 +136,10 @@ $("#records").on("click", ".actionCol > *", function () {
         $(this).replaceWith(oldName); // REPLACE WITH OLD NAME
         return; // STOP THE FUNCTION
       }
+      // REPLACE THE INPUT WITH THE VALUE OF THE INPUT
+      if (status == "Done") $(this).replaceWith(`${changedName}${checkIcon}`); // IF STATUS == "DONE"
+      else $(this).replaceWith(changedName); // ELSE STATUS != "DONE"
+
       blinkAnimation(row); // ANIMATE THE ROW
       $(this).replaceWith(changedName); // REPLACE THE INPUT WITH THE VALUE OF THE INPUT
       localSave(queue, changedName, status); // UPDATE THE LOCALSTORAGE WITH THE NEW NAME
@@ -175,7 +183,7 @@ const addRow = (patientName, status) => {
   $("#records").append(`
       <tr class="record">
         <td class="qCol">${q}</td>
-        <td class="nameCol">${patientName}${status == "Done" ? '<i class="fa-solid fa-check fa-lg"></i>' : ""}</td>
+        <td class="nameCol">${patientName}${status == "Done" ? checkIcon : ""}</td>
         <td class="statusCol">
           <button class="waitingButton" ${status == "Waiting" ? "disabled" : ""} name="Waiting">Waiting</button>
           <button class="processButton" ${status == "Process" ? "disabled" : ""} name="Process">Process</button>
@@ -267,8 +275,9 @@ const localSave = (queue, name, status) => localStorage.setItem(queue, [name, st
 // INPUT VALIDATION FUNCTION
 const validation = (input) => {
   input = input.trim();
-  if (!input) return notification("Name cannot be empty", "danger"); // IF THE INPUT IS EMPTY
-  if (input.includes(",")) return notification("Cannot use comma", "danger"); // IF THE INPUT IS CONTAIN A COMMA
-  if (input.search(/[0-9]/) >= 0) return notification("Cannot use number", "danger"); // IF THE INPUT CONTAIN NUMERIC
+  if (!input) return notification("Name cannot be empty!", "danger"); // IF THE INPUT IS EMPTY
+  if (input.includes(",")) return notification("Cannot use comma!", "danger"); // IF THE INPUT IS CONTAIN A COMMA
+  if (input.search(/[0-9]/) >= 0) return notification("Cannot use number!", "danger"); // IF THE INPUT CONTAIN NUMERIC
+  if (input.search(/  /) >= 0) return notification("Cannot use double or more space!", "danger");
   return " "; // IF INPUT IS VALID RETURN STRING INSTEAD OF UNDEFINED
 };
