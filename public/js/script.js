@@ -23,21 +23,21 @@ $("#date").append(` ${date.getDate()} ${month[date.getMonth()]} ${date.getFullYe
 
 // COPY BUTTON
 $("#copyButton").on("click", function () {
-  $("thead").remove(); // REMOVE TABLE HEAD
   $("tr").each(function () {
     // REMOVE UNNECESSARY TD
     $(this).children("td:eq(0)").remove();
     $(this).children("td:eq(1)").remove();
     $(this).children("td:eq(1)").remove();
     $(this).children("td:eq(1)").remove();
-    $(this).children("td:eq(0)").css("width", "200%"); // MAKE THE NAME COLUMN LONGER
-    $("table").css("width", "fit-content"); // MAKE THE TABLE WIDTH SHORTER
   });
+  $("#records").append("<tr><td>-----------------------</td></tr>"); // DIVIDER
+  $("#records").append(`Total: ${q - 1} patients`); // TOTAL RECORDS
 
   // ASSIGN CLIPBOARD.JS TO COPY BUTTON
   new ClipboardJS("#copyButton").on("success", (e) => {
     notification("Patient data copied to clipboard", "success"); // COPIED NOTIFICATION
     e.clearSelection();
+    $("table").remove(); // REMOVE THE TABLE
   });
   setTimeout(() => location.reload(), 3000); // RELOAD THE PAGE AFTER 3 SECONDS TO MAKE THE TABLE NORMAL
 });
@@ -267,7 +267,11 @@ const capitalize = (strings) => {
 const blinkAnimation = (element) => element.animate({ opacity: "0.3" }, 300).animate({ opacity: "1" }, 300);
 
 // SLOWLY DISAPPEAR ANIMATION
-const slowDisappear = (element) => element.animate({ opacity: 0 }, 1000);
+const slowDisappear = (element) => {
+  $("*").css("pointer-events", "none");
+  element.animate({ opacity: 0 }, 1000);
+  setTimeout(() => $("*").css("pointer-events", "auto"), 1000);
+};
 
 // LOCALSTORAGE SAVE
 const localSave = (queue, name, status) => localStorage.setItem(queue, [name, status]);
