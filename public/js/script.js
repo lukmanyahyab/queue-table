@@ -35,7 +35,7 @@ $("#copyButton").on("click", function () {
 
   // ASSIGN CLIPBOARD.JS TO COPY BUTTON
   new ClipboardJS("#copyButton").on("success", (e) => {
-    notification("Patient data copied to clipboard", "success"); // COPIED NOTIFICATION
+    notification("Patient data copied to clipboard<br>Page will refresh in 3 seconds", "success", 3000); // COPIED NOTIFICATION
     e.clearSelection();
     $("table").remove(); // REMOVE THE TABLE
   });
@@ -165,7 +165,7 @@ $("#records").on("click", ".actionCol > *", function () {
 
         slowDisappear(row); // SLOWLY DISAPPEAR ANIMATION
         for (let i = queue; i < localStorage.length; i++) {
-          setTimeout(() => moveDown(row, queueCol, 0), 1000); // MOVE THE ROW TO THE VERY BOTTOM
+          setTimeout(() => moveDown(row, queueCol), 1000); // MOVE THE ROW TO THE VERY BOTTOM
         }
         setTimeout(() => row.remove(), 1000); // REMOVE THE ROW
         setTimeout(() => localStorage.removeItem(localStorage.length), 1000); // REMOVE FROM THE LOCALSTORAGE
@@ -214,7 +214,7 @@ const patientInput = () => {
 };
 
 // ROW MOVE UP FUNCTION
-const moveUp = (row, queueCol, duration = 150) => {
+const moveUp = (row, queueCol) => {
   let prevQueueCol = row.prev().find(".qCol"); // PREVIOUS QUEUE COLUMN
   row.prev().before(row); // INSERT CURRENT ROW TO BEFORE PREVIOUS ROW
   blinkAnimation(row); // ANIMATE WHEN MOVE
@@ -227,10 +227,14 @@ const moveUp = (row, queueCol, duration = 150) => {
   let [queueValue, prevQueueValue] = [localStorage.getItem(queue), localStorage.getItem(prevQueue)];
   localStorage.setItem(queue, prevQueueValue);
   localStorage.setItem(prevQueue, queueValue);
+
+  // MAKE ALL ELEMENTS UNITERACTABLE FOR 500MS TO WAIT FOR THE ANIMATION
+  $("*").css("pointer-events", "none");
+  setTimeout(() => $("*").css("pointer-events", "auto"), 500);
 };
 
 // ROW MOVE DOWN FUNCTION
-const moveDown = (row, queueCol, duration = 150) => {
+const moveDown = (row, queueCol) => {
   let nextQueueCol = row.next().find(".qCol"); // NEXT QUEUE COLUMN
   row.next().after(row); // INSERT CURRENT ROW TO AFTER NEXT ROW
   blinkAnimation(row); // ANIMATE WHEN MOVE
@@ -243,35 +247,37 @@ const moveDown = (row, queueCol, duration = 150) => {
   let [queueValue, nextQueueValue] = [localStorage.getItem(queue), localStorage.getItem(nextQueue)];
   localStorage.setItem(queue, nextQueueValue);
   localStorage.setItem(nextQueue, queueValue);
+
+  // MAKE ALL ELEMENTS UNITERACTABLE FOR 500MS TO WAIT FOR THE ANIMATION
+  $("*").css("pointer-events", "none");
+  setTimeout(() => $("*").css("pointer-events", "auto"), 500);
 };
 
 // NOTIFICATION FUNCTION
-const notification = (message, type) => {
+const notification = (message, type, duration = 2000) => {
   if (type == "success") {
-    $("#notification").text(message).css({ color: "#31664d", "background-color": "#d1e7dd", border: "5px solid #beddcf" }).animate({ top: "5%" }, 500);
+    $("#notification").html(message).css({ color: "#31664d", "background-color": "#d1e7dd", border: "5px solid #beddcf" }).animate({ top: "5%" }, 500);
   } else {
-    $("#notification").text(message).css({ color: "#842029", "background-color": "#f8d7da", border: "5px solid #f4ccd0" }).animate({ top: "5%" }, 500);
+    $("#notification").html(message).css({ color: "#842029", "background-color": "#f8d7da", border: "5px solid #f4ccd0" }).animate({ top: "5%" }, 500);
   }
+  // MAKE ALL ELEMENTS UNITERACTABLE FOR A FEW SECONDS TO WAIT FOR THE NOTIFICATION ANIMATION
+  $("*").css("pointer-events", "none");
+  setTimeout(() => $("*").css("pointer-events", "auto"), duration);
   setTimeout(() => $("#notification").animate({ top: "-15%" }, 500), 2000);
 };
 
 // CAPITALIZE FUNCTION
-const capitalize = (strings) => {
-  return strings
+const capitalize = (strings) =>
+  strings
     .split(" ")
     .map((string) => (string ? string[0].toUpperCase() + string.slice(1).toLowerCase() : ""))
     .join(" ");
-};
 
 // BLINK ANIMATION
 const blinkAnimation = (element) => element.animate({ opacity: "0.3" }, 300).animate({ opacity: "1" }, 300);
 
 // SLOWLY DISAPPEAR ANIMATION
-const slowDisappear = (element) => {
-  $("*").css("pointer-events", "none");
-  element.animate({ opacity: 0 }, 1000);
-  setTimeout(() => $("*").css("pointer-events", "auto"), 1000);
-};
+const slowDisappear = (element) => element.animate({ opacity: 0 }, 1000);
 
 // LOCALSTORAGE SAVE
 const localSave = (queue, name, status) => localStorage.setItem(queue, [name, status]);
