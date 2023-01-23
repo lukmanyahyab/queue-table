@@ -177,6 +177,18 @@ $("#records").on("click", ".actionCol > *", function () {
   }
 });
 
+// WHEN PAGE SCROLLED
+$(document).scroll(function () {
+  // IF PAGE SCROLL POSITION > 0, MAKE "BACK TO TOP" BUTTON APPEAR ELSE HIDE IT
+  if ($(document).scrollTop() > 0) $("#back-to-top").animate({ left: "10px" }, 10);
+  else $("#back-to-top").animate({ left: "-15%" }, 10);
+});
+
+// BACK TO TOP BUTTON
+$("#back-to-top").on("click", function () {
+  $(document).scrollTop(0); // WHEN CLICKED, SCROLL TO THE VERY TOP
+});
+
 //////////////////////////////////////////// HELPER FUNCTIONS /////////////////////////////////////////////
 // ADD ROW FUNCTION
 const addRow = (patientName, status) => {
@@ -211,6 +223,7 @@ const patientInput = () => {
   localSave(q++, $("#patientInput").val(), "Waiting"); // SAVE DATA ON LOCALSTORAGE
   notification("Patient has been added", "success"); // NOTIFICATION MESSAGE
   $("#patientInput").val(""); // EMPTYING THE INPUT
+  $(document).scrollTop(99999); // SCROLL PAGE TO THE VERY BOTTOM
 };
 
 // ROW MOVE UP FUNCTION
